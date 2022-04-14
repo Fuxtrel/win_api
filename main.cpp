@@ -27,7 +27,7 @@ bool createProcess(std::string path, std::vector<std::string> &arguments, std::s
             nullptr,
             nullptr,
             false,
-            REALTIME_PRIORITY_CLASS,
+            REALTIME_PRIORITY_CLASS | CREATE_NO_WINDOW,
             nullptr,
             working_dir.data(),
             &startupinfo,
