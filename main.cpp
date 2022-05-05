@@ -1,58 +1,37 @@
-#include <iostream>
-#include <thread>
 #include "win_shortcuts.h"
-#include <chrono>
-#include <psapi.h>
-#include <winuser.h>
-#include <processthreadsapi.h>
-#include <vector>
 
-
-bool createProcess(std::string path, std::vector<std::string> &arguments, std::string working_dir) {
-    PROCESS_INFORMATION process_information;
-    ZeroMemory(&process_information, sizeof(process_information));
-
-    std::string cmd = path;
-
-    for(int i = 0; i < arguments.size(); i++){
-        cmd += "" + arguments[i];
+void bar(char *arr[], int &length) {
+    std::cout << length << std::endl;
+    for (int i = 0; i < length; i++) {
+        std::cout << arr[i] << std::endl;
     }
-
-    STARTUPINFO startupinfo;
-    ZeroMemory(&startupinfo, sizeof(startupinfo));
-    startupinfo.cb = sizeof(startupinfo);
-    auto res =  CreateProcessA(
-            path.data(),
-            cmd.data(),
-            nullptr,
-            nullptr,
-            false,
-            REALTIME_PRIORITY_CLASS | CREATE_NO_WINDOW,
-            nullptr,
-            working_dir.data(),
-            &startupinfo,
-            &process_information
-    );
-    std::cout << res;
 }
 
-
 int main() {
-    PROCESS_INFORMATION process_information;
-    ZeroMemory(&process_information, sizeof(process_information));
+    std::string str = "a|b|c|d";
+    std::string sepa = "|";
+    std::vector<std::string> vector = split(str, sepa);
 
-    STARTUPINFO startupinfo;
-    ZeroMemory(&startupinfo, sizeof(startupinfo));
-    startupinfo.cb = sizeof(startupinfo);
+    char* path = "C:\\StorageUp\\Storage Up\\storageup.exe";
+    char* args = "";
+    char* workingDir = "C:\\StorageUp\\Storage Up";
+    createProcess(path, args, workingDir);
 
-    std::string working_dir_path = R"(C:\StorageUp\StorageUp)";
-    std::string exe_path = R"(C:\StorageUp\StorageUp\ups_update.exe)";
-    std::vector<std::string> arguments = {};
-
-
-    auto res1 = createProcess(exe_path, arguments, working_dir_path);
-    printf("CreateProcess failed (%d).\n", GetLastError());
-    std::cout << "My func " << res1 << std::endl;
+//    PROCESS_INFORMATION process_information;
+//    ZeroMemory(&process_information, sizeof(process_information));
+//
+//    STARTUPINFO startupinfo;
+//    ZeroMemory(&startupinfo, sizeof(startupinfo));
+//    startupinfo.cb = sizeof(startupinfo);
+//
+//    std::string working_dir_path = R"(C:\StorageUp\StorageUp)";
+//    std::string exe_path = R"(C:\StorageUp\StorageUp\ups_update.exe)";
+//    std::vector<std::string> arguments = {};
+//
+//
+//    auto res1 = createProcess(exe_path, arguments, working_dir_path);
+//    printf("CreateProcess failed (%d).\n", GetLastError());
+//    std::cout << "My func " << res1 << std::endl;
 
 
 //    unsigned int start_time = clock();
