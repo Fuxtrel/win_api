@@ -3,37 +3,31 @@
 
 #include <string>
 #include <utility>
-#include <windows.h>
+#include <Windows.h>
 #include <objbase.h>
-#include <shobjidl.h>
-#include <winnls.h>
-#include <objidl.h>
-#include <shlguid.h>
+#include <ShObjIdl.h>
+#include <WinNls.h>
+#include <ObjIdl.h>
+#include <ShlGuid.h>
 #include <iostream>
 #include <processthreadsapi.h>
 #include <vector>
+#include <ShellScalingApi.h>
 
+extern "C" __declspec(dllexport)
+int createLinkFile(const char* path_to_exe, const char* args, const char* path_to_shortcut,
+                   const char* description, int show_mode,
+                   const char* working_dir, const char* icon_path, int icon_index);
 
-
-
-//class WinShortCut {
-
-//public:
-//    const std::string app_folder_path;
-//    const std::string storageup_path;
-//
-//    WinShortCut() = default;
-//    ~WinShortCut() = default;
-//
-//    [[maybe_unused]] bool createShortCut(LPSTR  path_to_exe, LPSTR args, LPSTR  path_to_shortcut,
-//                                         LPSTR  description, int show_mode,
-//                                         LPSTR  working_dir, LPSTR  icon_path, int icon_index);
-//
-//};
+int createShortCut(LPSTR path_to_exe, LPSTR args, LPSTR path_to_shortcut,
+                    LPSTR description, int show_mode,
+                    LPSTR working_dir, LPSTR icon_path, int icon_index);
 
 std::vector<std::string> split(std::string source, std::string separator);
 
 extern "C" __declspec(dllexport)
-bool createProcess(char* path, char* arguments, char* working_dir);
+int createProcess(const char *path, const char *arguments, const char *working_dir);
+
+//HRESULT getScreenScale();
 
 #endif //WIN_API_WIN_SHORTCUTS_H
