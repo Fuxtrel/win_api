@@ -8,7 +8,6 @@ int createShortCut(LPSTR path_to_exe, LPSTR args, LPSTR path_to_shortcut,
     IPersistFile *p_persist_file = nullptr;
     WCHAR wsz_link_file[MAX_PATH];
     int count_written_wide_characters;
-
     CoInitialize(nullptr);
     if (
             (strlen(path_to_exe) > 0) &&
@@ -59,7 +58,6 @@ int createShortCut(LPSTR path_to_exe, LPSTR args, LPSTR path_to_shortcut,
     CoUninitialize();
     return result;
 }
-
 
 int createLinkFile(char *path_to_exe, char *args, char *path_to_shortcut,
                    char *description, int show_mode,
@@ -142,12 +140,6 @@ void killProcessByName(const char *process_name) {
     CloseHandle(hSnapShot);
 }
 
-
-///
-/// \param key
-/// \return
-
-
 ///REG_NONE
 ///REG_SZ
 ///REG_EXPAND_SZ
@@ -191,8 +183,6 @@ unsigned char *castPCharToPUChar(const char *source) {
     return result;
 }
 
-
-
 void createRegKey(const char *key, const char *variable_name, const char *value) {
     HKEY hKey;
     const size_t length = getPCharLength(value);
@@ -200,8 +190,6 @@ void createRegKey(const char *key, const char *variable_name, const char *value)
     const wchar_t *_variable_name = castPCharToPWchar(variable_name);
     const unsigned char *_value = castPCharToPUChar(value);
     std::cout << std::endl << length << std::endl;
-
-
 
 //    GetModuleFileNameW(nullptr, szPath, 100);
     LRESULT status = RegCreateKeyExW(HKEY_CURRENT_USER,

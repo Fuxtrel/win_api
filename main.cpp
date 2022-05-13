@@ -26,11 +26,14 @@ int main() {
 //                           lnk_path, description, show_mode,
 //                           working_dir, icon_path, icon_index);
 //    killProcessByName("Discord.exe");
-    char a[] = "ab";
-    a[0] = 0x61;
-    createRegKey("Software\\StorageUp\\test", "DisplayVersion", a);
+//    char a[] = "ab";
+//    a[0] = 0x61;
+//    createRegKey("Software\\StorageUp\\test", "DisplayVersion", a);
 //    getScreenScale();
 //    DISPLAY_DEVICE_TYPE displayDeviceType = DEVICE_IMMERSIVE;
 //    DEVICE_SCALE_FACTOR abr = GetScaleFactorForDevice(displayDeviceType);
+//    std::cout << abr;
 //    std::this_thread::sleep_for(2000ms);
+    char a = '\u0008';
+    std::cout << int(a);
 }

@@ -27,13 +27,13 @@ extern "C" __declspec(dllexport)
 int createProcess(const char *path, const char *arguments, const char *working_dir);
 
 extern "C" __declspec(dllexport)
-int createLinkFile(char* path_to_exe, char* args, char* path_to_shortcut,
-                   char* description, int show_mode,
-                   char* working_dir, char* icon_path, int icon_index);
+int createLinkFile(char *path_to_exe, char *args, char *path_to_shortcut,
+                   char *description, int show_mode,
+                   char *working_dir, char *icon_path, int icon_index);
 //void getScreenScale();
 
 void killProcessByName(const char *filename);
 
-void createRegKey(const char * key, const char* variable_name, const char* value);
+void createRegKey(const char *key, const char *variable_name, const char *value);
 
 #endif //WIN_API_WIN_API_H
