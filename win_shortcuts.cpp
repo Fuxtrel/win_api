@@ -68,7 +68,7 @@ int createLinkFile(char* path_to_exe, char* args, char* path_to_shortcut,
     return result;
 }
 
-std::vector<std::string> split(std::string source, std::string separator) {
+std::vector<std::string> split(std::string source, std::string separator) {  
     std::vector<std::string> result;
     size_t pos = 0;
     while ((pos = source.find(separator)) != std::string::npos) {
@@ -113,14 +113,10 @@ int createProcess(const char *path, const char *arguments, const char *working_d
     return result;
 }
 
-//HRESULT getScreenScale() {
-//    DISPLAY_DEVICE_TYPE displayDeviceType = DEVICE_PRIMARY;
-//    GetScaleFactorForDevice(displayDeviceType);
-//    if(deviceScaleFactor == nullptr){
-//        std::cout << (int(*deviceScaleFactor)) << std::endl;
-//    }
-//    HRESULT hresult = 0;
-//    return hresult;
-//}
+int getScreenScale() {
+    DISPLAY_DEVICE_TYPE displayDeviceType = DEVICE_PRIMARY;
+    DEVICE_SCALE_FACTOR deviceScaleFactor = GetScaleFactorForDevice(displayDeviceType);
+    return deviceScaleFactor;
+}
 
 

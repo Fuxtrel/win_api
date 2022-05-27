@@ -14,6 +14,9 @@
 #include <vector>
 #include <ShellScalingApi.h>
 
+//"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x64\\shcore.lib"
+
+#pragma comment(lib, "shcore.lib")
 
 int createShortCut(LPSTR path_to_exe, LPSTR args, LPSTR path_to_shortcut,
 LPSTR description, int show_mode,
@@ -28,6 +31,8 @@ extern "C" __declspec(dllexport)
 int createLinkFile(char* path_to_exe, char* args, char* path_to_shortcut,
                    char* description, int show_mode,
                    char* working_dir, char* icon_path, int icon_index);
-//HRESULT getScreenScale();
+
+extern "C" __declspec(dllexport)
+int getScreenScale();
 
 #endif //WIN_API_WIN_SHORTCUTS_H
