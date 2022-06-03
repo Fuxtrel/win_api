@@ -13,6 +13,8 @@
 #include <processthreadsapi.h>
 #include <vector>
 #include <ShellScalingApi.h>
+#include <tlhelp32.h>
+#include <map>
 
 //"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x64\\shcore.lib"
 
@@ -34,5 +36,7 @@ int createLinkFile(char* path_to_exe, char* args, char* path_to_shortcut,
 
 extern "C" __declspec(dllexport)
 int getScreenScale();
+
+std::map<int,std::string> getRunningProcesses();
 
 #endif //WIN_API_WIN_SHORTCUTS_H

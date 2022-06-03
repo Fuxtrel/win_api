@@ -119,4 +119,46 @@ int getScreenScale() {
     return deviceScaleFactor;
 }
 
+std::map<int,std::string> getRunningProcesses() {
+
+    HANDLE hProcessSnap;
+    PROCESSENTRY32 pe32;
+    std::map<int, std::string> processes;
+
+    try
+    {
+        // Take a snapshot of all processes in the system.
+        hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+        if (hProcessSnap == INVALID_HANDLE_VALUE) {
+            std::cout << "CreateToolhelp32Snapshot (of processes) ERROR";
+            return processes;
+        }
+
+        // Set the size of the structure before using it.
+        pe32.dwSize = sizeof(PROCESSENTRY32);
+
+        // Retrieve information about the first process,
+        // and exit if unsuccessful
+        if (!Process32First(hProcessSnap, &pe32)) {
+            std::cout << "Process32First ERROR";
+            CloseHandle(hProcessSnap);          // clean the snapshot object
+            return processes;
+        }
+
+        // Now walk the snapshot of processes, and
+        // make the list of processes
+        do {
+            processes.insert(std::make_pair(pe32.th32ProcessID, pe32.szExeFile));
+        } while (Process32Next(hProcessSnap, &pe32));
+
+        CloseHandle(hProcessSnap);
+        return processes;
+    }
+    catch (const char* msg)
+    {
+        std::cout << msg;
+        return processes;
+    }
+}
+
 
