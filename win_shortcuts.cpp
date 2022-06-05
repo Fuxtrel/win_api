@@ -185,4 +185,45 @@ bool processIsRunning(const char* processName)
     return false;
 }
 
+std::map<std::string, std::string> getServices()
+{
+    DWORD bytesNeeded = 0;
+    DWORD numServices = 0;
+    DWORD resumeHandle = 0;
+
+    std::map<std::string, std::string> services;
+
+    SC_HANDLE hSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_ENUMERATE_SERVICE);
+    if (!hSCManager)
+    {
+        return services;
+    }
+
+    EnumServicesStatus(hSCManager, SERVICE_WIN32, SERVICE_STATE_ALL, NULL, 0, &bytesNeeded, &numServices, &resumeHandle);
+
+    std::vector<BYTE> enumBuffer(bytesNeeded);
+    LPENUM_SERVICE_STATUS pEnum = reinterpret_cast<LPENUM_SERVICE_STATUS>(enumBuffer.data());
+
+    if (!EnumServicesStatus(hSCManager, SERVICE_WIN32, SERVICE_STATE_ALL, pEnum, bytesNeeded, &bytesNeeded, &numServices, &resumeHandle))
+    {
+        return services;
+    }
+
+    for(DWORD idx = 0; idx < numServices; ++idx)
+    {
+        services.insert(std::make_pair(pEnum[idx].lpServiceName, pEnum[idx].lpDisplayName));
+    }
+
+    CloseServiceHandle(hSCManager);
+    return services;
+}
+
+int getServiceStatus(const char* serviceName)
+{
+    //to do
+    return 0;
+}
+
+
+
 

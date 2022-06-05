@@ -41,6 +41,11 @@ extern "C" __declspec(dllexport)
 int getScreenScale();
 
 std::map<int,std::string> getRunningProcesses();
+
 bool processIsRunning(const char *processName);
+
+std::map<std::string, std::string> getServices();
+
+int getServiceStatus(const char* serviceName)
 
 #endif //WIN_API_WIN_SHORTCUTS_H
