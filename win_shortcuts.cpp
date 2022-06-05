@@ -161,4 +161,28 @@ std::map<int,std::string> getRunningProcesses() {
     }
 }
 
+bool processIsRunning(const char* processName)
+{
+    PROCESSENTRY32 entry;
+    entry.dwSize = sizeof(PROCESSENTRY32);
+
+    const auto snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+
+    if (!Process32First(snapshot, &entry)) {
+        CloseHandle(snapshot);
+        return false;
+    }
+
+    do {
+        if (!_stricmp((entry.szExeFile),
+                      (processName))) {
+            CloseHandle(snapshot);
+            return true;
+        }
+    } while (Process32Next(snapshot, &entry));
+
+    CloseHandle(snapshot);
+    return false;
+}
+
 
