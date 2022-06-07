@@ -1,6 +1,7 @@
 #ifndef WIN_API_WIN_SHORTCUTS_H
 #define WIN_API_WIN_SHORTCUTS_H
 
+
 #include <string>
 #include <utility>
 #include <Windows.h>
@@ -13,6 +14,10 @@
 #include <processthreadsapi.h>
 #include <vector>
 #include <ShellScalingApi.h>
+#include <tlhelp32.h>
+#include <map>
+#include <cstdio>
+#include <string.h>
 
 //"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x64\\shcore.lib"
 
@@ -34,5 +39,15 @@ int createLinkFile(char* path_to_exe, char* args, char* path_to_shortcut,
 
 extern "C" __declspec(dllexport)
 int getScreenScale();
+
+std::map<int,std::string> getRunningProcesses();
+
+bool processIsRunning(const char *processName);
+
+std::map<std::string, std::string> getServices();
+
+int getServiceStatus(const char* serviceName);
+
+int setEnv(const char *var_name, const char *new_value, int change_flag);
 
 #endif //WIN_API_WIN_SHORTCUTS_H
