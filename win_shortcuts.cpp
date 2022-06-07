@@ -209,15 +209,14 @@ std::map<std::string, std::string> getServices()
         return services;
     }
 
-    for(DWORD idx = 0; idx < numServices; ++idx)
+    for(DWORD i = 0; i < numServices; ++i)
     {
-        services.insert(std::make_pair(pEnum[idx].lpServiceName, pEnum[idx].lpDisplayName));
+        services.insert(std::make_pair(pEnum[i].lpServiceName, pEnum[i].lpDisplayName));
     }
 
     CloseServiceHandle(hSCManager);
     return services;
 }
-
 
 int getServiceStatus( const char* serviceName )
 {
@@ -251,6 +250,22 @@ int getServiceStatus( const char* serviceName )
 
     //0 - service does not exists
 
+    //SERVICE_STOPPED
+    //0x00000001
+    //The service has stopped.
+
+    //SERVICE_START_PENDING
+    //0x00000002
+    //The service is starting.
+
+    //SERVICE_STOP_PENDING
+    //0x00000003
+    //The service is stopping.
+
+    //SERVICE_RUNNING
+    //0x00000004
+    //The service is running.
+
     //SERVICE_CONTINUE_PENDING
     //0x00000005
     //The service is about to continue.
@@ -263,23 +278,16 @@ int getServiceStatus( const char* serviceName )
     //0x00000007
     //The service is paused.
 
-    //SERVICE_RUNNING
-    //0x00000004
-    //The service is running.
-
-    //SERVICE_START_PENDING
-    //0x00000002
-    //The service is starting.
-
-    //SERVICE_STOP_PENDING
-    //0x00000003
-    //The service is stopping.
-
-    //SERVICE_STOPPED
-    //0x00000001
-    //The service has stopped.
     return ssStatus.dwCurrentState;
 }
+
+int setEnv(const char *var_name, const char *new_value, int change_flag)
+{
+    //todo
+    return 0;
+}
+
+
 
 
 

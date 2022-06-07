@@ -34,4 +34,9 @@ int main() {
 //    bool processRunning = processIsRunning("dart.exe");
 //    auto services = getServices();
 //    int serviceStatus = getServiceStatus("DartService");
+
+    auto x = getenv("PATH");
+    
+
+
 }

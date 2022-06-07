@@ -48,4 +48,6 @@ std::map<std::string, std::string> getServices();
 
 int getServiceStatus(const char* serviceName);
 
+int setEnv(const char *var_name, const char *new_value, int change_flag);
+
 #endif //WIN_API_WIN_SHORTCUTS_H
