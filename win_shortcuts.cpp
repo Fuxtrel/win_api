@@ -218,12 +218,68 @@ std::map<std::string, std::string> getServices()
     return services;
 }
 
-int getServiceStatus(const char* serviceName)
-{
-    //to do
-    return 0;
-}
 
+int getServiceStatus( const char* serviceName )
+{
+    SC_HANDLE theService, scm;
+    SERVICE_STATUS m_SERVICE_STATUS;
+    SERVICE_STATUS_PROCESS ssStatus;
+    DWORD dwBytesNeeded;
+
+
+    scm = OpenSCManager( nullptr, nullptr, SC_MANAGER_ENUMERATE_SERVICE );
+    if( !scm ) {
+        return 0;
+    }
+
+    theService = OpenService( scm, serviceName, SERVICE_QUERY_STATUS );
+    if( !theService ) {
+        CloseServiceHandle( scm );
+        return 0;
+    }
+
+    auto result = QueryServiceStatusEx( theService, SC_STATUS_PROCESS_INFO,
+                                        reinterpret_cast<LPBYTE>( &ssStatus ), sizeof( SERVICE_STATUS_PROCESS ),
+                                        &dwBytesNeeded );
+
+    CloseServiceHandle( theService );
+    CloseServiceHandle( scm );
+
+    if( result == 0 ) {
+        return 0;
+    }
+
+    //0 - service does not exists
+
+    //SERVICE_CONTINUE_PENDING
+    //0x00000005
+    //The service is about to continue.
+
+    //SERVICE_PAUSE_PENDING
+    //0x00000006
+    //The service is pausing.
+
+    //SERVICE_PAUSED
+    //0x00000007
+    //The service is paused.
+
+    //SERVICE_RUNNING
+    //0x00000004
+    //The service is running.
+
+    //SERVICE_START_PENDING
+    //0x00000002
+    //The service is starting.
+
+    //SERVICE_STOP_PENDING
+    //0x00000003
+    //The service is stopping.
+
+    //SERVICE_STOPPED
+    //0x00000001
+    //The service has stopped.
+    return ssStatus.dwCurrentState;
+}
 
 
 

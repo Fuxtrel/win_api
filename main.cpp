@@ -30,7 +30,8 @@ int main() {
 //                           working_dir, icon_path, icon_index);
 //    std::this_thread::sleep_for(2000ms);
 
-      //auto result = getRunningProcesses();
-      //bool processRunning = processIsRunning("dart.exe");
-      auto services = getServices();
+//    auto result = getRunningProcesses();
+//    bool processRunning = processIsRunning("dart.exe");
+//    auto services = getServices();
+//    int serviceStatus = getServiceStatus("DartService");
 }
